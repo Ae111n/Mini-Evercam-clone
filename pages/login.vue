@@ -7,7 +7,7 @@
       <input v-model="userPassword" required placeholder="password" type="password">
       <br>
       <button type="submit">login</button>
-      <h3>{{ user.user }}</h3>
+      <h2 v-show="user.loading === true">loading...</h2>
     </form>
   </div>
 
@@ -17,26 +17,30 @@
 import { userStore } from '~/store/user';
 export default {
   name: 'loginPage',
-  setup() {
-    const user = userStore();
-    return { user };
-  },
 
   data() {
     return {
       userEmail: '',
-      userPassword: ''
+      userPassword: '',
     }
   },
+
+  computed: {
+    user() {
+      return userStore()
+    },
+  },
+
   methods: {
     initLogin() {
-      this.user.user = {
-        username: this.userEmail,
-        password: this.userPassword
-      }
-    }
-  }
+      this.user.login(this.userEmail, this.userPassword)
+      
+    },
+
+
+  },
 }
+
 </script>
 <style>
 .login {
