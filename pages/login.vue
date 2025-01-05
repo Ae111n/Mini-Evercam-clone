@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <form @submit.prevent="initLogin" class="login">
       <input v-model="userEmail" required placeholder="email" type="email">
       <br>
@@ -10,34 +9,28 @@
       <h2 v-show="user.loading === true">loading...</h2>
     </form>
   </div>
-
 </template>
 
 <script>
 import { userStore } from '~/store/user';
 export default {
+  middleware: 'auth',
   name: 'loginPage',
-
   data() {
     return {
       userEmail: '',
       userPassword: '',
     }
   },
-
   computed: {
     user() {
       return userStore()
     },
   },
-
   methods: {
     initLogin() {
       this.user.login(this.userEmail, this.userPassword)
-      
     },
-
-
   },
 }
 

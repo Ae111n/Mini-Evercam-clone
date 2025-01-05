@@ -5,54 +5,47 @@ export const userStore = defineStore('user', {
     token: null,
     user: null,
     loading: false,
-    error: null
+    error: null,
   }),
-  getters: {
-    isAuthenticated() {
-      if (this.token || window.localStorage.getItem('evercam_token')) {
-        return true;
 
-      } else {
-        return false;
-      }
-    },
+  getters: {
+    isAuthenticated: (state) => !!state.token,
 
     userFullName() {
-      /*  combines firstname and lastname */
+      return this.user.firstname + ' ' + this.user.lastname
     }
   },
 
   actions: {
-
     setToken(token) {
+      const axios = this.$nuxt.$axios;
+
       this.token = token;
       window.localStorage.setItem('evercam_token', token);
-      //   * Set on axios instance using this.$axios.setToken(token, 'Bearer')
+      axios.setToken(token, 'Bearer');
+      //   * Set on axios instance using this.$axios.setToken(token, 'Bearer');
     },
     setUser(userData) {
       this.user = userData;
     },
     clearAuth() {
+      const axios = this.$nuxt.$axios;
       this.token = null
       window.localStorage.removeItem('evercam_token');
+      axios.setToken(false);
       //   * Remove from axios using this.$axios.setToken(false);
       this.user = null;
     },
 
-    initToken() {
-      const storedToken = localStorage.getItem('evercam_token')
+    initToken(storedToken) {
       if (storedToken) {
         this.setToken(storedToken)
-      } 
-      else {
-        return
       }
     },
 
     async login(username, password) {
       const axios = this.$nuxt.$axios;
       this.loading = true;
-
       try {
         const response = await axios.post('/auth/login', {
           'username': username,
@@ -72,8 +65,9 @@ export const userStore = defineStore('user', {
         });
         this.setToken(data.token);
         this.loading = false;
-      }
+        window.location.reload()
 
+      }
       catch (error) {
         console.error(error.response ? error.response.data : error.message);
         this.error = error;

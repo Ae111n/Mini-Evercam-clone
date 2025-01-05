@@ -22,7 +22,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/axios.js'
+    '~/plugins/axios.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -33,7 +33,7 @@ export default {
     '@nuxtjs/composition-api/module',
     '@pinia/nuxt',
   ],
-
+ssr:false,
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
@@ -43,11 +43,6 @@ export default {
   build: {
   },
   router: {
-    extendRoutes(routes, resolve) {
-      routes.push({
-        path: '/',
-        redirect: '/login'
-      })
-    }
+    middleware: 'auth'
   }
 }
