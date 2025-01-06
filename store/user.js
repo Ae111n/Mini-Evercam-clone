@@ -12,29 +12,28 @@ export const userStore = defineStore('user', {
     isAuthenticated: (state) => !!state.token,
 
     userFullName() {
-      return this.user.firstname + ' ' + this.user.lastname
+      return this.user
     }
   },
 
   actions: {
     setToken(token) {
-      const axios = this.$nuxt.$axios;
-
       this.token = token;
       window.localStorage.setItem('evercam_token', token);
-      axios.setToken(token, 'Bearer');
-      //   * Set on axios instance using this.$axios.setToken(token, 'Bearer');
     },
     setUser(userData) {
       this.user = userData;
+      window.localStorage.setItem('user_fullName',
+        `${userData.firstname} ${userData.lastname}`);
     },
     clearAuth() {
       const axios = this.$nuxt.$axios;
       this.token = null
       window.localStorage.removeItem('evercam_token');
-      axios.setToken(false);
-      //   * Remove from axios using this.$axios.setToken(false);
+      axios.setToken(false);//* Remove from axios using this.$axios.setToken(false);
       this.user = null;
+      window.localStorage.removeItem('user_fullName');
+      window.location.reload()
     },
 
     initToken(storedToken) {
@@ -65,12 +64,12 @@ export const userStore = defineStore('user', {
         });
         this.setToken(data.token);
         this.loading = false;
+        this.error=null;
         window.location.reload()
-
       }
       catch (error) {
-        console.error(error.response ? error.response.data : error.message);
-        this.error = error;
+        console.error(error.response.data);
+        this.error = error.response.data.message;
         this.loading = false;
       }
     }

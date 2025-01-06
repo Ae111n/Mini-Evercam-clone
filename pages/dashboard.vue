@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1>DASHBOARD</h1>
-    <button @click="this.user.clearAuth">clearAuth</button>
+    <h1>Welcome to the dashboard </h1>
+    <h2>Logged in as : {{this.storedFullName}}</h2>
+    <button @click="this.user.clearAuth">Logout</button>
   </div>
 </template>
 
@@ -14,6 +15,8 @@ export default {
     user() {
       return userStore()
     },
+    storedFullName() { return localStorage.getItem('user_fullName')
+  }
   },
 }
 </script>
