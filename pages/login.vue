@@ -24,8 +24,8 @@ export default {
   name: 'loginPage',
   data() {
     return {
-      username: 'bouguedraaymen@gmail.com',
-      Password: 'Aymen069420boug!',
+      username: '',
+      Password: '',
     }
   },
   computed: {

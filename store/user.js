@@ -30,7 +30,7 @@ export const userStore = defineStore('user', {
       const axios = this.$nuxt.$axios;
       this.token = null
       window.localStorage.removeItem('evercam_token');
-      axios.setToken(false);//* Remove from axios using this.$axios.setToken(false);
+      axios.setToken(false);
       this.user = null;
       window.localStorage.removeItem('user_fullName');
       window.location.reload()
