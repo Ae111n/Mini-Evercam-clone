@@ -64,7 +64,7 @@ export const userStore = defineStore('user', {
         });
         this.setToken(data.token);
         this.loading = false;
-        this.error=null;
+        this.error = null;
         window.location.reload()
       }
       catch (error) {

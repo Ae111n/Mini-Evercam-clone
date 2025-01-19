@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'my-evercam-app',
+    title: 'evercam clone',
     htmlAttrs: {
       lang: 'en'
     },
@@ -12,13 +12,13 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/evercamLogo.ico' }
     ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['@/assets/css/tailwind.css'],
-  
+
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -33,7 +33,7 @@ export default {
     '@nuxtjs/composition-api/module',
     '@pinia/nuxt',
   ],
-ssr:false,
+  ssr: false,
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
@@ -48,7 +48,7 @@ ssr:false,
       },
     },
   },
-  router: {
-    middleware: 'auth'
-  }
+
+  loading: false
+
 }

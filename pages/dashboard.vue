@@ -3,15 +3,10 @@
     <div id="navbar">
       <h2 class="username">Logged in as : {{ storedFullName }}</h2>
       <h2 class="cameraCount">{{ camerasList.length }} cameras available..</h2>
-           <button id="logout" @click="user.clearAuth">Logout</button>
+      <button id="logout" @click="user.clearAuth">Logout</button>
     </div>
-<br>
-<br>
-<br>
-<h1 class="title">Welcome to the dashboard </h1> 
-
     <div class="container-div">
-      <cameraCard @click="fetchLatestSnapshot()" v-for="camera in camerasList" :key="camera.id" :token="user.token" :camera="camera" />
+      <cameraCard v-for="camera in camerasList" :key="camera.id" :token="user.token" :camera="camera" />
     </div>
   </div>
 </template>
@@ -24,11 +19,9 @@ export default {
   mounted() {
     this.cameras.fetchCameras()
   },
-
-
   computed: {
-    cameras() {
-      return camerasStore()
+   cameras() {
+      return  camerasStore()
     },
 
     camerasList() {
@@ -40,57 +33,54 @@ export default {
     },
     storedFullName() { return localStorage.getItem('user_fullName') },
   },
-  methods: {
-    fetchLatestSnapshot(){
-      this.cameras.fetchLatestSnapshot()
-    }
-  }
 }
 </script>
-
-
 <style>
 html {
   transition: all .2s;
-  background-color: whitesmoke;
+  background-color: rgb(210, 210, 210);
 
 }
 
 #navbar {
-  width: 100%;
+  width: 100vw;
   height: 40px;
   display: flex;
-  margin: 0 0 15px 0;
   position: fixed;
   box-shadow: 0px 2px 5px 0px rgba(173, 173, 173, 1);
   background: rgb(219, 219, 219);
   font-size: large;
+  top: 0;
+  z-index: 1;
 }
-.title{
+
+.title {
   text-align: center;
   margin: auto;
   font-size: 34px;
   font-weight: bold;
 }
+
 .username {
-  margin:auto auto auto 24px ;
+  margin: auto auto auto 24px;
 }
- .cameraCount{
-margin: auto auto auto 130px;
+
+.cameraCount {
+  margin: auto auto auto 130px;
 }
 
 .container-div {
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 96vw;
+  padding: 0;
+  margin: 5vh auto;
   display: flex;
   flex-wrap: wrap;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  justify-content: space-between;
 }
 
 #logout {
-  background-color: rgba(227, 5, 5, 0.887);
+  background-color: #d82020f5;
   border-radius: .4rem;
   border-style: none;
   color: #fff;
@@ -105,7 +95,7 @@ margin: auto auto auto 130px;
 }
 
 #logout:hover {
-  background-color: rgb(255, 0, 0);
+  filter:saturate(2);
   box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
   opacity: 1;
   transform: translateY(0);

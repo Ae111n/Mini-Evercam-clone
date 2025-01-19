@@ -11,8 +11,8 @@
 
       <button id="signIn" type="submit">Sign in</button>
     </form>
-    <div id="loader"><span v-show="this.user.loading ===true" class="loader"></span></div>
-    <div id="error"> <span v-show="this.user.error" >{{ this.user.error }}...</span></div>
+    <div id="loader"><span v-show="this.user.loading === true" class="loader"></span></div>
+    <div id="error"> <span v-show="this.user.error">{{ this.user.error }}...</span></div>
 
   </div>
 </template>
@@ -42,21 +42,22 @@ export default {
 
 </script>
 <style>
-
 :root {
-    --blue:#256bec;
-    --red:#d82020f5;
+  --blue: #256bec;
+  --red: #d82020f5;
 }
+
 html {
   width: 100vw;
   height: 100vh;
-  background-color: whitesmoke;
+  background-color: rgb(210, 210, 210);
   font-family: sans-serif;
 }
 
 h1 {
   margin: 60px auto 2px auto;
-  font-size: 34px;
+  font-size: 38px;
+  font-weight: 600;
 }
 
 p {
@@ -94,7 +95,7 @@ input:focus {
 }
 
 label {
-  margin: auto auto 10px 40px;
+  margin: auto auto 7px 55px;
   font-size: larger;
 }
 
@@ -164,9 +165,10 @@ label {
     transform: rotate(360deg);
   }
 }
+
 #error {
   text-align: center;
-  font-size:28px;
-  color:var(--red);
+  font-size: 28px;
+  color: var(--red);
 }
 </style>
