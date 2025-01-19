@@ -58,6 +58,8 @@ h1 {
   margin: 60px auto 2px auto;
   font-size: 38px;
   font-weight: 600;
+ letter-spacing: 0.1cap;
+  
 }
 
 p {
@@ -96,6 +98,7 @@ input:focus {
 
 label {
   margin: auto auto 7px 55px;
+ letter-spacing: 0.05cap;
   font-size: larger;
 }
 

@@ -2,6 +2,7 @@
   <div>
     <div id="navbar">
       <p class="camera-id">{{ $route.params.camera_exid }} </p>
+
       <button id="toDashboard" @click="toDashboard">Back to Dashboard</button>
     </div>
 
@@ -21,7 +22,9 @@ export default {
   data() {
     return {
       imageSrc: null,
-      imageLoaded: false
+      imageLoaded: false,
+      intervalId: null,
+      date: null
     }
   },
   async mounted() {
@@ -30,6 +33,9 @@ export default {
     this.fetchSnapshot()
   },
   computed: {
+    lastLogin() {
+      return localStorage.getItem('lastLogin')
+    },
     params() {
       this.$route.params.camera_exid
     },
@@ -45,15 +51,21 @@ export default {
       this.imageLoaded = true;
     },
     fetchSnapshot() {
-      setInterval(
+      this.intervalId = setInterval(
         async () => {
           await this.cameras.fetchLatestSnapshot(this.$route.params.camera_exid)
           this.imageSrc = this.cameras.imageSrc
-        }, 2000
+        }, 5000
       )
     }
+
+  },
+  beforeDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
-}
+};
 
 </script>
 
@@ -72,7 +84,8 @@ export default {
 
 
 .containerDiv {
-  height: calc(100vh - 40px);;
+  height: calc(100vh - 40px);
+  ;
   width: 100vw;
   bottom: 0;
   position: absolute;
@@ -108,6 +121,8 @@ export default {
   margin-left: 15px;
   font-size: 22px;
   font-weight: 400;
+  letter-spacing: .05cap;
+
 }
 
 #toDashboard {
@@ -123,6 +138,7 @@ export default {
   width: 160px;
   height: 28px;
   margin-right: 15px;
+  right: 10px;
 }
 
 #toDashboard:hover {

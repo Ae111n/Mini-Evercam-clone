@@ -2,10 +2,12 @@
   <div class="dashboard">
     <div id="navbar">
       <h2 class="username">Logged in as : {{ storedFullName }}</h2>
-      <h2 class="cameraCount">{{ camerasList.length }} cameras available..</h2>
+      <h2 class="loginDate">Last login :<span class="date">  {{ lastLogin }}</span></h2>
       <button id="logout" @click="user.clearAuth">Logout</button>
     </div>
+
     <div class="container-div">
+      <h2 class="cameraCount">{{ camerasList.length }} cameras available..</h2>
       <cameraCard v-for="camera in camerasList" :key="camera.id" :token="user.token" :camera="camera" />
     </div>
   </div>
@@ -18,8 +20,12 @@ export default {
   middleware: 'auth',
   mounted() {
     this.cameras.fetchCameras()
+    console.log(this.lastLogin)
   },
   computed: {
+    lastLogin(){
+    return localStorage.getItem('lastLogin')
+    },
    cameras() {
       return  camerasStore()
     },
@@ -63,10 +69,20 @@ html {
 
 .username {
   margin: auto auto auto 24px;
+  letter-spacing: .05cap;
+  font-weight: 400;
 }
-
+.loginDate{
+  margin: auto auto auto 4% ;
+}
+.date{
+  font-style:italic;
+  font-weight: 100;
+}
 .cameraCount {
-  margin: auto auto auto 130px;
+text-align: center;
+width: 100%;
+font-size: 20px;
 }
 
 .container-div {
