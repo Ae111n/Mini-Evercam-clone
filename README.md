@@ -1,69 +1,70 @@
-# my-evercam-app
+# Evercam Clone
 
-## Build Setup
+A simplified clone of Evercam built with Nuxt 2, Pinia, and Axios. This app demonstrates handling user authentication, state management, and working with protected APIs.
 
-```bash
-# install dependencies
-$ yarn install
+## Features
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+- **User Authentication**:
+  - Login with username and password.
+  - JWT token storage in Pinia and localStorage.
+  - Automatic redirection based on authentication state.
+- **Dashboard**:
+  - Displays user name.
+  - Lists available cameras with thumbnails.
+  - Logout functionality.
+- **Live Camera View**:
+  - View the latest snapshots of selected cameras.
+  - Automatically refreshes snapshots every 5 seconds.
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+## File Structure Overview
 
-# generate static project
-$ yarn generate
+```
+├── components/
+│   └── cameraCard.vue    # Camera card component for displaying thumbnails.
+├── middleware/
+│   └── auth.js           # Middleware for route authentication.
+├── pages/
+│   ├── cameras/
+│   │   └── _camera_exid.vue  # Live view for individual cameras.
+│   ├── dashboard.vue     # Main dashboard showing user info and cameras.
+│   ├──login.vue         # Login page.
+|   └──index.vue           
+├── plugins/
+│   └── axios.js          # Axios setup for API calls.
+├── store/
+│   ├── cameras.js        # Pinia store for managing camera data.
+│   └── user.js           # Pinia store for user authentication.
+├── static/
+│   └── evercamLogo.ico   # Static assets (e.g., logo).
+├── nuxt.config.js         # Nuxt configuration file.
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+## Getting Started
 
-## Special Directories
+### Prerequisites
+- Node.js installed.
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+### Installation
+1. Clone the repository:
+  ```
+   git clone <repository-url>
+   cd <project-directory>
+   ```
+2. Install dependencies:
+   ```
+   yarn install
+   ```
 
-### `assets`
+### Running the App
+- Start the development server:
+  ```
+  yarn dev
+  ```
+- Open `http://localhost:3000` in your browser.
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+## Tech Stack
+- **Nuxt 2**: Framework for Vue.js.
+- **Pinia**: State management library.
+- **Axios**: HTTP client for API requests.
 
 
-### `pages`
-
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).

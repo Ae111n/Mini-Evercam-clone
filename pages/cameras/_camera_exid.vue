@@ -67,7 +67,6 @@ export default {
   object-fit: fill;
   filter: blur(48px);
   position: absolute;
-
 }
 
 
