@@ -85,7 +85,6 @@ export default {
 
 .containerDiv {
   height: calc(100vh - 40px);
-  ;
   width: 100vw;
   bottom: 0;
   position: absolute;

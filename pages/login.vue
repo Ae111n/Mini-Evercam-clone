@@ -34,8 +34,9 @@ export default {
     },
   },
   methods: {
-    initLogin() {
-      this.user.login(this.username, this.Password)
+   async initLogin() {
+      await this.user.login(this.username, this.Password);
+      this.$router.push('/dashboard')
     },
   },
 }
@@ -77,6 +78,7 @@ p {
   background-color: white;
   flex-direction: column;
   box-shadow: 0px 5px 14px 0px rgba(173, 173, 173, 1);
+
 }
 
 input {

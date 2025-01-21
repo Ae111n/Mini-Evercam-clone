@@ -1,6 +1,7 @@
 <template>
      <div class="card" @click="toLiveView()" >
-          <img :src="`https://media.evercam.io/v2/cameras/${camera.exid}/thumbnail?authorization=${token}`">
+          <img @load="onImageLoad" v-show="imageLoaded" :src="`https://media.evercam.io/v2/cameras/${camera.exid}/thumbnail?authorization=${token}`">
+          <div class="loading"><span v-show="!imageLoaded" class="loader"></span></div>
           <span class="status status-online" v-show="camera.is_online">online</span>
           <span class="status status-offline" v-show="!camera.is_online">offline</span>
           <h1 required class="h1">{{ camera.name }}</h1>
@@ -21,6 +22,11 @@ export default {
                required: true,
           }
      },
+     data(){
+          return {
+               imageLoaded : false,
+          }
+     },
      computed: {
     cameras() {
       return camerasStore()
@@ -28,7 +34,10 @@ export default {
     methods:{
     toLiveView() {
      this.$router.push(`/cameras/${this.camera.exid}`);
-    }
+    },
+    onImageLoad() {
+      this.imageLoaded = true;
+    },
     }
 }
 </script>
@@ -67,6 +76,34 @@ img {
      height: 100%;
      object-fit: contain;
      image-resolution: from-image 300dpi;
+}
+.loading{
+     width: 100%;
+     height: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+
+}
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 8px solid #333434;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation .8s linear infinite;
+  margin: auto;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 .status{
      top: 12px;

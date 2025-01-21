@@ -9,30 +9,38 @@ export const camerasStore = defineStore('cameras', {
           imageSrc: null
      }),
      actions: {
-          async fetchCameras() {
-               const axios = this.$nuxt.$axios;
+          async fetchCameras(axios) {
+               /* const axios = this.$nuxt.$axios  */ /* passed axios as an argument when calling the function.. */
                try {
                     const response = await axios.get('/cameras');
                     const cameras = response.data.cameras;
                     this.cameras = cameras;
-                    console.log(this.cameras);
-                    this.error = null;
+                    if (this.error) {
+                         this.error = null
+                    }
+
                }
                catch (error) {
                     console.log(error)
                     this.error = error;
+                    window.location.reload()
+
                }
           },
           async fetchLatestSnapshot(cameraId) {
                const axios = this.$nuxt.$axios;
                try {
+
                     const response = await axios.get(`/cameras/${cameraId}/recordings/snapshots/latest`);
                     this.imageSrc = response.data.data;
-                    this.error = null
+                    if (this.error) {
+                         this.error = null
+                    }
                }
                catch (error) {
                     console.log(error)
                     this.error = error
+
                }
           },
      }

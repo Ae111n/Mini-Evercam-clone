@@ -2,7 +2,7 @@
   <div class="dashboard">
     <div id="navbar">
       <h2 class="username">Logged in as : {{ storedFullName }}</h2>
-      <h2 class="loginDate">Last login :<span class="date">  {{ lastLogin }}</span></h2>
+      <h2 class="loginDate">Last login :<span class="date"> {{ lastLogin }}</span></h2>
       <button id="logout" @click="user.clearAuth">Logout</button>
     </div>
 
@@ -18,16 +18,19 @@ import { camerasStore } from '~/store/cameras';
 import { userStore } from '~/store/user';
 export default {
   middleware: 'auth',
+  data() {
+    return {
+      lastLogin: null,
+    }
+  },
   mounted() {
-    this.cameras.fetchCameras()
-    console.log(this.lastLogin)
+    this.lastLogin = localStorage.getItem('lastLogin')
+    this.cameras.fetchCameras(this.$nuxt.$axios); 
   },
   computed: {
-    lastLogin(){
-    return localStorage.getItem('lastLogin')
-    },
-   cameras() {
-      return  camerasStore()
+
+    cameras() {
+      return camerasStore()
     },
 
     camerasList() {
@@ -45,7 +48,6 @@ export default {
 html {
   transition: all .2s;
   background-color: rgb(210, 210, 210);
-
 }
 
 #navbar {
@@ -72,17 +74,20 @@ html {
   letter-spacing: .05cap;
   font-weight: 400;
 }
-.loginDate{
-  margin: auto auto auto 4% ;
+
+.loginDate {
+  margin: auto auto auto 4%;
 }
-.date{
-  font-style:italic;
+
+.date {
+  font-style: italic;
   font-weight: 100;
 }
+
 .cameraCount {
-text-align: center;
-width: 100%;
-font-size: 20px;
+  text-align: center;
+  width: 100%;
+  font-size: 20px;
 }
 
 .container-div {
@@ -111,7 +116,7 @@ font-size: 20px;
 }
 
 #logout:hover {
-  filter:saturate(2);
+  filter: saturate(2);
   box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
   opacity: 1;
   transform: translateY(0);
