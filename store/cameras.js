@@ -10,7 +10,6 @@ export const camerasStore = defineStore('cameras', {
      }),
      actions: {
           async fetchCameras(axios) {
-               /* const axios = this.$nuxt.$axios  */ /* passed axios as an argument when calling the function.. */
                try {
                     const response = await axios.get('/cameras');
                     const cameras = response.data.cameras;
@@ -27,11 +26,10 @@ export const camerasStore = defineStore('cameras', {
 
                }
           },
-          async fetchLatestSnapshot(cameraId) {
+          async fetchLatestSnapshot(exId) {
                const axios = this.$nuxt.$axios;
                try {
-
-                    const response = await axios.get(`/cameras/${cameraId}/recordings/snapshots/latest`);
+                    const response = await axios.get(`/cameras/${exId}/recordings/snapshots/latest`);
                     this.imageSrc = response.data.data;
                     if (this.error) {
                          this.error = null
@@ -40,7 +38,6 @@ export const camerasStore = defineStore('cameras', {
                catch (error) {
                     console.log(error)
                     this.error = error
-
                }
           },
      }

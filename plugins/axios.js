@@ -7,13 +7,9 @@ export default ({ $axios }) => {
     if (Token) {
         user.initToken(Token);
         $axios.defaults.headers.common['Authorization'] = `Bearer ${Token}`;
-
-        console.log('Token from store:', user.token);
-        console.log('Token from localStorage:', localStorage.getItem('evercam_token'));
-        console.log('Final Token:', Token);
     }
     else {
-        console.error('no token fround');
+        console.error('axios error : no token fround');
     }
 
 

@@ -1,11 +1,10 @@
 <template>
   <div>
     <div id="navbar">
-      <p class="camera-id">{{ $route.params.camera_exid }} </p>
-
+      <span class="camera-id"> ex-id : ({{ exid }})</span>
+      <p class="camera-name">{{ selectedCamera }}</p>
       <button id="toDashboard" @click="toDashboard">Back to Dashboard</button>
     </div>
-
     <div class="containerDiv">
       <img id="background-img" :src="`${imageSrc}`">
       <img id="image" @load="onImageLoad" v-show="imageLoaded" :src="`${imageSrc}`">
@@ -24,27 +23,35 @@ export default {
       imageSrc: null,
       imageLoaded: false,
       intervalId: null,
-      date: null
+      date: null,
+      selectedCamera:null,
     }
   },
   async mounted() {
+    if(this.cameras.selectedCamera){
+       this.selectedCamera = this.cameras.selectedCamera,
+      localStorage.setItem('selectedCamera', this.selectedCamera)
+    }else if(!this.cameras.selectedCamera && !this.selectedCamera){
+      this.selectedCamera=localStorage.getItem('selectedCamera')
+    }
     await this.cameras.fetchLatestSnapshot(this.$route.params.camera_exid)
     this.imageSrc = this.cameras.imageSrc
     this.fetchSnapshot()
   },
   computed: {
+    exid() {
+      return this.$route.params.camera_exid
+    },
     lastLogin() {
       return localStorage.getItem('lastLogin')
     },
-    params() {
-      this.$route.params.camera_exid
-    },
     cameras() {
       return camerasStore()
-    }
+    },
   },
   methods: {
-    toDashboard() {
+     toDashboard() {
+      localStorage.removeItem('selectedCamera');
       this.$router.push('/dashboard')
     },
     onImageLoad() {
@@ -53,7 +60,7 @@ export default {
     fetchSnapshot() {
       this.intervalId = setInterval(
         async () => {
-          await this.cameras.fetchLatestSnapshot(this.$route.params.camera_exid)
+          await this.cameras.fetchLatestSnapshot(this.exid)
           this.imageSrc = this.cameras.imageSrc
         }, 5000
       )
@@ -80,8 +87,6 @@ export default {
   filter: blur(48px);
   position: absolute;
 }
-
-
 
 .containerDiv {
   height: calc(100vh - 40px);
@@ -117,11 +122,16 @@ export default {
 }
 
 .camera-id {
+  font-weight: 100;
+  font-style: italic;
+
+}
+
+.camera-name {
   margin-left: 15px;
   font-size: 22px;
   font-weight: 400;
   letter-spacing: .05cap;
-
 }
 
 #toDashboard {

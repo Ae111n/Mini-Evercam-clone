@@ -30,14 +30,9 @@ export const userStore = defineStore('user', {
     },
     clearAuth() {
       const axios = this.$nuxt.$axios;
-      this.token = null
-      window.localStorage.removeItem('evercam_token');
       axios.setToken(false);
-      this.user = null;
-      window.localStorage.removeItem('lastLogin', this.loginDate)
-      window.localStorage.removeItem('user_fullName');
+      localStorage.clear()
       window.location.reload()
-      this.loginDate = null
     },
 
     initToken(storedToken) {
@@ -60,18 +55,16 @@ export const userStore = defineStore('user', {
           },
         })
         const data = await response.data;
-
         this.setToken(data.token);
-        this.loading = false;
-        if (this.error) {
-          this.error = null;
-        }
         this.setUser({
           firstname: data.firstname,
           lastname: data.lastname,
           email: data.email
         });
-
+        this.loading = false;
+        if (this.error) {
+          this.error = null;
+        }
       }
       catch (error) {
         console.error(error.response.data);

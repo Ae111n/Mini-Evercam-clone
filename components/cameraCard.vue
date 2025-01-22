@@ -33,6 +33,7 @@ export default {
     },},
     methods:{
     toLiveView() {
+     this.cameras.selectedCamera = this.camera.name;
      this.$router.push(`/cameras/${this.camera.exid}`);
     },
     onImageLoad() {
@@ -54,7 +55,7 @@ export default {
      display: flex;
      flex-direction: column;
      width: 600px;
-     height: 400px;
+     height: 390px;
      overflow: hidden;
      border-radius: 0.5rem;
      background-color: white;
