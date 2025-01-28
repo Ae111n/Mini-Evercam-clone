@@ -4,7 +4,8 @@
           <div class="loading"><span v-show="!imageLoaded" class="loader"></span></div>
           <span class="status status-online" v-show="camera.is_online">online</span>
           <span class="status status-offline" v-show="!camera.is_online">offline</span>
-          <h1 required class="h1">{{ camera.name }}</h1>
+          <h1 class="h1">{{ camera.name }}</h1>
+        
      </div>
 </template>
 
