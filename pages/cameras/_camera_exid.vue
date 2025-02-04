@@ -3,28 +3,39 @@
     <div class="navbar">
       <span class="camera-id"> ex-id : ({{ exid }})</span>
       <p class="camera-name">{{ selectedCamera }}</p>
-      <button class="toDashboard" @click="toDashboard">Back to Dashboard</button>
+      <button class="toDashboard" @click="toDashboard">
+        Back to Dashboard
+      </button>
     </div>
     <div ref="containerDiv" class="containerDiv">
-      <img class="background-img" :src="`${imageSrc}`">
+      <img class="background-img" :src="`${imageSrc}`" />
       <div class="controls">
-        <button @click="toggleFullscreen" class="material-icons">fullscreen</button>
-        <button @click="play" v-if="isPaused" class="material-icons">play_arrow</button>
+        <button @click="toggleFullscreen" class="material-icons">
+          fullscreen
+        </button>
+        <button @click="play" v-if="isPaused" class="material-icons">
+          play_arrow
+        </button>
         <button @click="pause" v-else class="material-icons">pause</button>
       </div>
-      <img class="image" ref="image" @load="onImageLoad" v-show="imageLoaded" :src="`${imageSrc}`">
-      <!-- @wheel="onWheel" :style="imageStyles" -->
+      <img
+        :style="imgStyles"
+        @wheel="onWheel"
+        class="image"
+        ref="image"
+        @load="onImageLoad"
+        v-show="imageLoaded"
+        :src="`${imageSrc}`"
+      />
       <span v-show="!imageLoaded">loading...</span>
     </div>
   </div>
 </template>
 
 <script>
-import { camerasStore } from '~/store/cameras';
+import { camerasStore } from "~/store/cameras";
 export default {
-  components: {
-
-  },
+  components: {},
   data() {
     return {
       imageSrc: null,
@@ -33,58 +44,56 @@ export default {
       date: null,
       selectedCamera: null,
       isPaused: false,
-
-      /*       zoom: 1, 
-            originX: 50, 
-            originY: 50, */
-    }
+      zoom: 1,
+      originX: 0,
+      originY: 0,
+    };
   },
   async mounted() {
     if (this.cameras.selectedCamera) {
-      this.selectedCamera = this.cameras.selectedCamera,
-        localStorage.setItem('selectedCamera', this.selectedCamera)
+      (this.selectedCamera = this.cameras.selectedCamera),
+        localStorage.setItem("selectedCamera", this.selectedCamera);
     } else if (!this.cameras.selectedCamera && !this.selectedCamera) {
-      this.selectedCamera = localStorage.getItem('selectedCamera')
+      this.selectedCamera = localStorage.getItem("selectedCamera");
     }
-    await this.cameras.fetchLatestSnapshot(this.$route.params.camera_exid)
-    this.imageSrc = this.cameras.imageSrc
-    this.fetchSnapshot()
+    await this.cameras.fetchLatestSnapshot(this.$route.params.camera_exid);
+    this.imageSrc = this.cameras.imageSrc;
+    this.fetchSnapshot();
   },
   computed: {
-    /*     imageStyles() {
-          return {
-            transform: `scale(${this.zoom})`,
-            transformOrigin: `${this.originX}% ${this.originY}%`, 
-          };
-        }, */
+    imgStyles() {
+      return {
+        transform: ` scale(${this.zoom})`,
+        transformOrigin: `${this.originX}% ${this.originY}%`,
+      };
+    },
     exid() {
-      return this.$route.params.camera_exid
+      return this.$route.params.camera_exid;
     },
     lastLogin() {
-      return localStorage.getItem('lastLogin')
+      return localStorage.getItem("lastLogin");
     },
     cameras() {
-      return camerasStore()
+      return camerasStore();
     },
   },
   methods: {
-    /*     onWheel(event) {
-          event.preventDefault();
-          if (event.deltaY < 0 && this.zoom < 4) {
-            const rect = this.$refs.image.getBoundingClientRect();
-            this.originX = ((event.clientX - rect.left) / rect.width) * 100;
-            this.originY = ((event.clientY - rect.top) / rect.height) * 100;
-            console.log(rect, event.clientX, event.clientY)
-            this.zoom += 0.1; // Zoom in
-          }
-          else if (event.deltaY > 0 && this.zoom > 1) {
-            this.zoom -= 0.1; // Zoom out
-          }
-        },  */
+    onWheel(event) {
+      event.preventDefault();
+      const rect = this.$refs.containerDiv.getBoundingClientRect();
+      if (event.deltaY < 0 && this.zoom < 5) {
+        this.originX = ((event.clientX - rect.left) / event.target.clientWidth) * 100;
+        this.originY = ((event.clientY - rect.top) / event.target.clientHeight) * 100;
+        this.zoom = this.zoom * 1.1;
+        console.log(event)
+      } else if (event.deltaY > 0 && this.zoom > 1) {
+        this.zoom = this.zoom / 1.1;
+      }
+    },
     toggleFullscreen() {
       const element = this.$refs.containerDiv;
       if (!document.fullscreenElement) {
-        element.requestFullscreen().catch(err => {
+        element.requestFullscreen().catch((err) => {
           console.error(`Error trying to enable fullscreen: ${err.message}`);
         });
       } else {
@@ -92,43 +101,39 @@ export default {
       }
     },
     toDashboard() {
-      localStorage.removeItem('selectedCamera');
-      this.$router.push('/dashboard')
+      localStorage.removeItem("selectedCamera");
+      this.$router.push("/dashboard");
     },
     onImageLoad() {
       this.imageLoaded = true;
     },
     fetchSnapshot() {
-
-      this.intervalId = setInterval(
-        async () => {
-          await this.cameras.fetchLatestSnapshot(this.exid)
-          this.imageSrc = this.cameras.imageSrc
-        }, 2000
-      )
+      this.intervalId = setInterval(async () => {
+        await this.cameras.fetchLatestSnapshot(this.exid);
+        this.imageSrc = this.cameras.imageSrc;
+      }, 2000);
     },
     pause() {
       clearInterval(this.intervalId);
       this.isPaused = true;
     },
     play() {
-      this.cameras.fetchLatestSnapshot(this.$route.params.camera_exid)
-      this.imageSrc = this.cameras.imageSrc
-      this.isPaused = false
-      this.fetchSnapshot()
-    }
+      this.cameras.fetchLatestSnapshot(this.$route.params.camera_exid);
+      this.imageSrc = this.cameras.imageSrc;
+      this.isPaused = false;
+      this.fetchSnapshot();
+    },
   },
   beforeDestroy() {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
-  }
+  },
 };
-
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Material+Icons');
+@import url("https://fonts.googleapis.com/css2?family=Material+Icons");
 
 .material-icons {
   font-size: 44px;
@@ -149,7 +154,7 @@ export default {
   display: flex;
   flex-direction: column;
   z-index: 99;
-  transition-duration: .4;
+  transition-duration: 0.4;
 }
 
 .controls button {
@@ -213,19 +218,18 @@ export default {
 .camera-id {
   font-weight: 100;
   font-style: italic;
-
 }
 
 .camera-name {
   margin-left: 15px;
   font-size: 22px;
   font-weight: 400;
-  letter-spacing: .05cap;
+  letter-spacing: 0.05cap;
 }
 
 .toDashboard {
   background-color: #094bc5;
-  border-radius: .4rem;
+  border-radius: 0.4rem;
   border-style: none;
   color: #fff;
   cursor: pointer;
@@ -241,15 +245,16 @@ export default {
 
 .toDashboard:hover {
   filter: saturate(2);
-  box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 5px 30px, rgba(0, 0, 0, 0.05) 0 1px 4px;
   opacity: 1;
   transform: translateY(0);
-  transition-duration: .35s;
+  transition-duration: 0.35s;
 }
 
 .toDashboard:active {
-  box-shadow: rgba(0, 0, 0, .1) 0 3px 6px 0, rgba(0, 0, 0, .1) 0 0 10px 0, rgba(0, 0, 0, .1) 0 1px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 3px 6px 0, rgba(0, 0, 0, 0.1) 0 0 10px 0,
+    rgba(0, 0, 0, 0.1) 0 1px 4px -1px;
   transform: translateY(2px);
-  transition-duration: .35s;
+  transition-duration: 0.35s;
 }
 </style>
