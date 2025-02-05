@@ -14,6 +14,7 @@ export const camerasStore = defineStore('cameras', {
                     const response = await axios.get('/cameras');
                     const cameras = response.data.cameras;
                     this.cameras = cameras;
+                    console.log(cameras)
                     if (this.error) {
                          this.error = null
                     }

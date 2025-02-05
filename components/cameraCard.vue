@@ -45,7 +45,11 @@ export default {
 </script>
 
 <style>
-.h1 {
+:root{
+     background-color: light-dark(rgb(210, 210, 210),rgb(52, 52, 52));
+     color-scheme: light dark;
+}
+/* .h1 {
      font-size: 20px;
      height: 20%;
      width: 100%;
@@ -66,8 +70,29 @@ export default {
      font-weight: 500;
      cursor: pointer;
      position: relative;
+} */
+.h1 {
+     font-size: 20px;
+     height: 20%;
+     width: 100%;
+     margin: 0 0 1% 2% ;
 }
 
+.card {
+     display: flex;
+     flex-direction: column;
+     width: 450px;
+     height: 300px;
+     overflow: hidden;
+     border-radius: 0.5rem;
+     background-color: light-dark;
+     box-shadow: 0px 1px 5px 0px rgba(173, 173, 173, 1);
+     margin: 8px 0;
+     transition: all .3s;
+     font-weight: 500;
+     cursor: pointer;
+     position: relative;
+}
 .card:hover {
      filter:saturate(1.5);
      transform: translateY(-3px);
@@ -90,7 +115,7 @@ img {
 .loader {
   width: 60px;
   height: 60px;
-  border: 8px solid #333434;
+  border: 8px solid #d82020f5;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;

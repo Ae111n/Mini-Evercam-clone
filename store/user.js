@@ -7,6 +7,7 @@ export const userStore = defineStore('user', {
     loading: false,
     error: null,
     loginDate: null,
+    darkMode:false
   }),
 
   getters: {

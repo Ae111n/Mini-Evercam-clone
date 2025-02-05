@@ -82,10 +82,12 @@ export default {
       event.preventDefault();
       const rect = this.$refs.containerDiv.getBoundingClientRect();
       if (event.deltaY < 0 && this.zoom < 5) {
-        this.originX = ((event.clientX - rect.left) / event.target.clientWidth) * 100;
-        this.originY = ((event.clientY - rect.top) / event.target.clientHeight) * 100;
+        this.originX =
+          ((event.clientX - rect.left) / event.target.clientWidth) * 100;
+        this.originY =
+          ((event.clientY - rect.top) / event.target.clientHeight) * 100;
         this.zoom = this.zoom * 1.1;
-        console.log(event)
+        console.log(event);
       } else if (event.deltaY > 0 && this.zoom > 1) {
         this.zoom = this.zoom / 1.1;
       }
@@ -134,6 +136,10 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Material+Icons");
+:root {
+  background-color: light-dark(rgb(210, 210, 210), rgb(52, 52, 52));
+  color-scheme: light dark;
+}
 
 .material-icons {
   font-size: 44px;
@@ -145,7 +151,6 @@ export default {
 }
 
 .controls {
-  background-color: rgb(71, 68, 68);
   width: 70px;
   height: 250px;
   position: absolute;
@@ -187,7 +192,7 @@ export default {
   width: 100vw;
   bottom: 0;
   position: absolute;
-  background-color: rgb(209, 209, 209);
+  background-color: light-dark;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -207,10 +212,10 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: absolute;
   top: 0;
-  box-shadow: 0px 2px 5px 0px rgba(173, 173, 173, 1);
-  background: rgb(219, 219, 219);
+  box-shadow: 0px 1px 5px 0px rgba(173, 173, 173, 1);
+  background: light-dark;
   font-size: large;
   z-index: 99;
 }

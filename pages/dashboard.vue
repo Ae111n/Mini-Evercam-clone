@@ -2,35 +2,46 @@
   <div class="dashboard">
     <div id="navbar">
       <h2 class="username">Logged in as : {{ storedFullName }}</h2>
-      <h2 class="loginDate">Last login :<span class="date"> {{ lastLogin }}</span></h2>
+      <h2 class="loginDate">
+        Last login :<span class="date"> {{ lastLogin }}</span>
+      </h2>
       <button id="logout" @click="user.clearAuth">Logout</button>
     </div>
 
     <div class="container-div">
+      <div class="title">
       <h2 class="cameraCount">{{ camerasList.length }} cameras available..</h2>
-      <cameraCard v-for="camera in camerasList" :key="camera.id" :token="user.token" :camera="camera" />
+</div>
+      <div class="grid">
+              <cameraCard
+        v-for="camera in camerasList"
+        :key="camera.id"
+        :token="user.token"
+        :camera="camera"
+      />
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
-import { camerasStore } from '~/store/cameras';
-import { userStore } from '~/store/user';
+import { camerasStore } from "~/store/cameras";
+import { userStore } from "~/store/user";
 export default {
-  middleware: 'auth',
+  middleware: "auth",
   data() {
     return {
       lastLogin: null,
-    }
+    };
   },
   mounted() {
-    this.lastLogin = localStorage.getItem('lastLogin')
-    this.cameras.fetchCameras(this.$nuxt.$axios); 
+    this.lastLogin = localStorage.getItem("lastLogin");
+    this.cameras.fetchCameras(this.$nuxt.$axios);
   },
   computed: {
-
     cameras() {
-      return camerasStore()
+      return camerasStore();
     },
 
     camerasList() {
@@ -40,14 +51,19 @@ export default {
     user() {
       return userStore();
     },
-    storedFullName() { return localStorage.getItem('user_fullName') },
+    storedFullName() {
+      return localStorage.getItem("user_fullName");
+    },
   },
-}
+};
 </script>
 <style>
+:root{
+  background-color: light-dark(rgb(210, 210, 210),rgb(52, 52, 52));
+  color-scheme: light dark;
+}
 html {
-  transition: all .2s;
-  background-color: rgb(210, 210, 210);
+  transition: all 0.2s;
 }
 
 #navbar {
@@ -55,23 +71,23 @@ html {
   height: 40px;
   display: flex;
   position: fixed;
-  box-shadow: 0px 2px 5px 0px rgba(173, 173, 173, 1);
-  background: rgb(219, 219, 219);
+  box-shadow: 0px 1px 5px 0px rgba(173, 173, 173, 1);
+  background: light-dark;
   font-size: large;
   top: 0;
   z-index: 1;
 }
 
-.title {
-  text-align: center;
+.cameraCount {
+  width: fit-content;
   margin: auto;
-  font-size: 34px;
-  font-weight: bold;
+  height: 35px;
+  font-size: 20px;
 }
 
 .username {
   margin: auto auto auto 24px;
-  letter-spacing: .05cap;
+  letter-spacing: 0.05cap;
   font-weight: 400;
 }
 
@@ -84,25 +100,18 @@ html {
   font-weight: 100;
 }
 
-.cameraCount {
-  text-align: center;
-  width: 100%;
-  font-size: 20px;
-}
-
 .container-div {
-  height: 100vh;
   width: 96vw;
-  padding: 0;
   margin: 5vh auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
 }
-
+.grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 16px;
+}
 #logout {
   background-color: #d82020f5;
-  border-radius: .4rem;
+  border-radius: 0.4rem;
   border-style: none;
   color: #fff;
   cursor: pointer;
@@ -117,16 +126,17 @@ html {
 
 #logout:hover {
   filter: saturate(2);
-  box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 5px 30px, rgba(0, 0, 0, 0.05) 0 1px 4px;
   opacity: 1;
   transform: translateY(0);
-  transition-duration: .35s;
+  transition-duration: 0.35s;
 }
 
 #logout:active {
-  box-shadow: rgba(0, 0, 0, .1) 0 3px 6px 0, rgba(0, 0, 0, .1) 0 0 10px 0, rgba(0, 0, 0, .1) 0 1px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 3px 6px 0, rgba(0, 0, 0, 0.1) 0 0 10px 0,
+    rgba(0, 0, 0, 0.1) 0 1px 4px -1px;
   transform: translateY(2px);
-  transition-duration: .35s;
+  transition-duration: 0.35s;
 }
 
 #logout:active:after {

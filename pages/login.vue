@@ -4,54 +4,70 @@
       <h1>Welcome to Evercam</h1>
       <p>Sign in to your account</p>
       <label for="username">Username </label>
-      <input v-model="username" id="username" required placeholder="Enter your username" type="email">
+      <input
+        v-model="username"
+        id="username"
+        required
+        placeholder="Enter your username"
+        type="email"
+      />
 
       <label for="password">Password </label>
-      <input v-model="Password" id="password" required placeholder="Enter your password" type="password">
+      <input
+        v-model="Password"
+        id="password"
+        required
+        placeholder="Enter your password"
+        type="password"
+      />
 
       <button id="signIn" type="submit">Sign in</button>
     </form>
-    <div id="loader"><span v-show="this.user.loading === true" class="loader"></span></div>
-    <div id="error"> <span v-show="this.user.error">{{ this.user.error }}...</span></div>
-
+    <div id="loader">
+      <span v-show="this.user.loading === true" class="loader"></span>
+    </div>
+    <div id="error">
+      <span v-show="this.user.error">{{ this.user.error }}...</span>
+    </div>
   </div>
 </template>
 
 <script>
-import { userStore } from '~/store/user';
+import { userStore } from "~/store/user";
 export default {
-  middleware: 'auth',
-  name: 'loginPage',
+  middleware: "auth",
+  name: "loginPage",
   data() {
     return {
-      username: '',
-      Password: '',
-    }
+      username: "",
+      Password: "",
+    };
   },
   computed: {
     user() {
-      return userStore()
+      return userStore();
     },
   },
   methods: {
-   async initLogin() {
+    async initLogin() {
       await this.user.login(this.username, this.Password);
-      this.$router.push('/dashboard')
+      this.$router.push("/dashboard");
     },
   },
-}
-
+};
 </script>
 <style>
 :root {
   --blue: #256bec;
   --red: #d82020f5;
+  background-color: light-dark(rgb(210, 210, 210), rgb(52, 52, 52));
+  color-scheme: light dark;
 }
 
 html {
   width: 100vw;
   height: 100vh;
-  background-color: rgb(210, 210, 210);
+  background-color: light-dark;
   font-family: sans-serif;
 }
 
@@ -59,8 +75,7 @@ h1 {
   margin: 60px auto 2px auto;
   font-size: 38px;
   font-weight: 600;
- letter-spacing: 0.1cap;
-  
+  letter-spacing: 0.1cap;
 }
 
 p {
@@ -75,10 +90,8 @@ p {
   height: 600px;
   margin: 7.5% auto auto auto;
   display: flex;
-  background-color: white;
   flex-direction: column;
   box-shadow: 0px 5px 14px 0px rgba(173, 173, 173, 1);
-
 }
 
 input {
@@ -89,18 +102,17 @@ input {
   border-radius: 8px;
   font-size: 22px;
   padding: 0 18px;
-  transition: all .4s;
+  transition: all 0.4s;
 }
 
 input:focus {
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.35);
-
 }
 
 label {
   margin: auto auto 7px 55px;
- letter-spacing: 0.05cap;
+  letter-spacing: 0.05cap;
   font-size: larger;
 }
 
@@ -115,7 +127,7 @@ label {
   outline: none;
   text-align: center;
   transform: translate3d(0, 0, 0);
-  transition: all .2s;
+  transition: all 0.2s;
   width: 90%;
   height: 10%;
   font-size: 30px;
@@ -123,20 +135,21 @@ label {
 
 #signIn:hover {
   background-color: #1366d6;
-  box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 5px 30px, rgba(0, 0, 0, 0.05) 0 1px 4px;
   opacity: 1;
   transform: translateY(0);
-  transition-duration: .35s;
+  transition-duration: 0.35s;
 }
 
 #signIn:hover:after {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 #signIn:active {
-  box-shadow: rgba(0, 0, 0, .1) 0 3px 6px 0, rgba(0, 0, 0, .1) 0 0 10px 0, rgba(0, 0, 0, .1) 0 1px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 3px 6px 0, rgba(0, 0, 0, 0.1) 0 0 10px 0,
+    rgba(0, 0, 0, 0.1) 0 1px 4px -1px;
   transform: translateY(2px);
-  transition-duration: .35s;
+  transition-duration: 0.35s;
 }
 
 #signIn:active:after {
