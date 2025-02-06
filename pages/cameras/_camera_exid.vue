@@ -50,16 +50,14 @@ export default {
     };
   },
   async mounted() {
-    if (this.cameras.selectedCamera) {
-      (this.selectedCamera = this.cameras.selectedCamera),
-        localStorage.setItem("selectedCamera", this.selectedCamera);
-    } else if (!this.cameras.selectedCamera && !this.selectedCamera) {
-      this.selectedCamera = localStorage.getItem("selectedCamera");
-    }
-    await this.cameras.fetchLatestSnapshot(this.$route.params.camera_exid);
-    this.imageSrc = this.cameras.imageSrc;
-    this.fetchSnapshot();
-  },
+  this.selectedCamera = this.cameras.selectedCamera || localStorage.getItem("selectedCamera");
+  if (this.selectedCamera) {
+    localStorage.setItem("selectedCamera", this.selectedCamera);
+  }
+  await this.cameras.fetchLatestSnapshot(this.exid);
+  this.imageSrc = this.cameras.imageSrc;
+  this.fetchSnapshot();
+},
   computed: {
     imgStyles() {
       return {
@@ -215,7 +213,7 @@ export default {
   position: absolute;
   top: 0;
   box-shadow: 0px 1px 5px 0px rgba(173, 173, 173, 1);
-  background: light-dark;
+  background-color: light-dark(rgb(210, 210, 210), rgb(52, 52, 52));
   font-size: large;
   z-index: 99;
 }
