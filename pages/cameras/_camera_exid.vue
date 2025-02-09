@@ -85,7 +85,6 @@ export default {
         this.originY =
           ((event.clientY - rect.top) / event.target.clientHeight) * 100;
         this.zoom = this.zoom * 1.1;
-        console.log(event);
       } else if (event.deltaY > 0 && this.zoom > 1) {
         this.zoom = this.zoom / 1.1;
       }
@@ -136,7 +135,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Material+Icons");
 :root {
   background-color: light-dark(rgb(210, 210, 210), rgb(52, 52, 52));
-  color-scheme: light dark;
+  color-scheme: light dark ;
 }
 
 .material-icons {
@@ -150,10 +149,10 @@ export default {
 
 .controls {
   width: 70px;
-  height: 250px;
+  height: 140px;
   position: absolute;
   right: 1%;
-  bottom: 1%;
+  bottom: 2%;
   display: flex;
   flex-direction: column;
   z-index: 99;
@@ -161,9 +160,9 @@ export default {
 }
 
 .controls button {
-  background-color: grey;
+  background-color: rgb(59, 59, 59);
   width: 100%;
-  height: 25%;
+  height: 50%;
   display: flex;
   align-items: center;
   justify-content: center;

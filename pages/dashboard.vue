@@ -7,9 +7,9 @@
       </h2>
       <button id="logout" @click="user.clearAuth">Logout</button>
     </div>
-
     <div class="container-div">
       <div class="title">
+        <h1>Camera dashboard</h1>
       <h2 class="cameraCount">{{ camerasList.length }} cameras available..</h2>
 </div>
       <div class="grid">
@@ -60,7 +60,7 @@ export default {
 <style>
 :root{
   background-color: light-dark(rgb(210, 210, 210),rgb(52, 52, 52));
-  color-scheme: light dark;
+  color-scheme: light dark ;
 }
 html {
   transition: all 0.2s;
@@ -76,13 +76,16 @@ html {
   font-size: large;
   top: 0;
   z-index: 1;
+  background-color: light-dark(rgb(210, 210, 210),rgb(52, 52, 52));
 }
 
 .cameraCount {
   width: fit-content;
   margin: auto;
   height: 35px;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 100;
+  font-style: italic;
 }
 
 .username {
@@ -99,15 +102,25 @@ html {
   font-style: italic;
   font-weight: 100;
 }
-
+.title{
+  text-align: center;
+}
+.title h1{
+font-size: 40px;
+font-weight: 500;
+letter-spacing: .3cap;
+}
 .container-div {
   width: 96vw;
   margin: 5vh auto;
+
 }
 .grid{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(435px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(535px, 1fr));
   gap: 16px;
+  width: 88vw;
+  margin: auto;
 }
 #logout {
   background-color: #d82020f5;
@@ -126,7 +139,6 @@ html {
 
 #logout:hover {
   filter: saturate(2);
-  box-shadow: rgba(0, 0, 0, 0.05) 0 5px 30px, rgba(0, 0, 0, 0.05) 0 1px 4px;
   opacity: 1;
   transform: translateY(0);
   transition-duration: 0.35s;

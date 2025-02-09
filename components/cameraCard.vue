@@ -1,53 +1,61 @@
 <template>
-     <div class="card" @click="toLiveView()" >
-          <img @load="onImageLoad" v-show="imageLoaded" :src="`https://media.evercam.io/v2/cameras/${camera.exid}/thumbnail?authorization=${token}`">
-          <div class="loading"><span v-show="!imageLoaded" class="loader"></span></div>
-          <span class="status status-online" v-show="camera.is_online">online</span>
-          <span class="status status-offline" v-show="!camera.is_online">offline</span>
-          <h1 class="h1">{{ camera.name }}</h1>
-        
-     </div>
+  <div class="card" @click="toLiveView()">
+    <img
+      @load="onImageLoad"
+      v-show="imageLoaded"
+      :src="`https://media.evercam.io/v2/cameras/${camera.exid}/thumbnail?authorization=${token}`"
+    />
+    <div class="loading">
+      <span v-show="!imageLoaded" class="loader"></span>
+    </div>
+    <span class="status status-online" v-show="camera.is_online">online</span>
+    <span class="status status-offline" v-show="!camera.is_online"
+      >offline</span
+    >
+    <h1 class="h1">{{ camera.name }}</h1>
+  </div>
 </template>
 
 <script>
-import { camerasStore } from '~/store/cameras';
+import { camerasStore } from "~/store/cameras";
 export default {
-     name: "cameraCard",
-     props: {
-          camera: {
-               type: Object,
-               required: true,
-          },
-          token: {
-               type: String,
-               required: true,
-          }
-     },
-     data(){
-          return {
-               imageLoaded : false,
-          }
-     },
-     computed: {
+  name: "cameraCard",
+  props: {
+    camera: {
+      type: Object,
+      required: true,
+    },
+    token: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      imageLoaded: false,
+    };
+  },
+  computed: {
     cameras() {
-      return camerasStore()
-    },},
-    methods:{
+      return camerasStore();
+    },
+  },
+  methods: {
     toLiveView() {
-     this.cameras.selectedCamera = this.camera.name;
-     this.$router.push(`/cameras/${this.camera.exid}`);
+      this.cameras.selectedCamera = this.camera.name;
+      this.$router.push(`/cameras/${this.camera.exid}`);
     },
     onImageLoad() {
       this.imageLoaded = true;
     },
-    }
-}
+  },
+};
 </script>
 
 <style>
-:root{
-     background-color: light-dark(rgb(210, 210, 210),rgb(52, 52, 52));
-     color-scheme: light dark;
+:root {
+  background-color: light-dark(rgb(210, 210, 210), rgb(52, 52, 52));
+  color-scheme: light dark;
 }
 /* .h1 {
      font-size: 20px;
@@ -72,45 +80,47 @@ export default {
      position: relative;
 } */
 .h1 {
-     font-size: 20px;
-     height: 20%;
-     width: 100%;
-     margin: 0 0 1% 2% ;
+  font-size: 23px;
+  height: 20%;
+  width: 100%;
+  margin: 0 0 1% 2%;
 }
 
 .card {
-     display: flex;
-     flex-direction: column;
-     width: 450px;
-     height: 300px;
-     overflow: hidden;
-     border-radius: 0.5rem;
-     background-color: light-dark;
-     box-shadow: 0px 1px 5px 0px rgba(173, 173, 173, 1);
-     margin: 8px 0;
-     transition: all .3s;
-     font-weight: 500;
-     cursor: pointer;
-     position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 550px;
+  height: 360px;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background-color: light-dark;
+  box-shadow: 0px 1px 5px 0px rgba(173, 173, 173, 1);
+  margin: 0;
+  transition: all 0.3s;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  font-weight: 300;
 }
 .card:hover {
-     filter:saturate(1.5);
-     transform: translateY(-3px);
+  filter: saturate(1.5);
+  transform: translateY(-3px);
+  letter-spacing: 0.1cap;
+  box-shadow: 0px 2px 8px 0px rgba(173, 173, 173, 1);
 }
 
 img {
-     width: 100%;
-     height: 100%;
-     object-fit: contain;
-     image-resolution: from-image 300dpi;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-resolution: from-image 300dpi;
 }
-.loading{
-     width: 100%;
-     height: 100%;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-
+.loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .loader {
   width: 60px;
@@ -120,7 +130,7 @@ img {
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
-  animation: rotation .8s linear infinite;
+  animation: rotation 0.8s linear infinite;
   margin: auto;
 }
 @keyframes rotation {
@@ -132,23 +142,25 @@ img {
     transform: rotate(360deg);
   }
 }
-.status{
-     top: 12px;
-     right: 12px;
-     position: absolute;
-     font-size: large;
-     font-weight: 300;
-     border-radius: 1rem;
-     width: 70px;
-     height: 30px;
-     text-align: center;
+.status {
+  top: 12px;
+  right: 12px;
+  position: absolute;
+  font-size: large;
+  font-weight: 300;
+  border-radius: 1rem;
+  width: 70px;
+  height: 30px;
+  text-align: center;
 }
-.status-online{
-     background-color: rgba(159, 218, 158, 0.701);
-     color: rgb(7, 93, 7);border: 1px solid rgb(7, 93, 7);
+.status-online {
+  background-color: rgba(159, 218, 158, 0.701);
+  color: rgb(7, 93, 7);
+  border: 1px solid rgb(7, 93, 7);
 }
-.status-offline{
-     background-color: rgba(218, 158, 158, 0.701);
-     color: rgb(93, 7, 7);border: 1px solid rgb(93, 7, 7);
+.status-offline {
+  background-color: rgba(218, 158, 158, 0.701);
+  color: rgb(93, 7, 7);
+  border: 1px solid rgb(93, 7, 7);
 }
 </style>

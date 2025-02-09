@@ -12,7 +12,6 @@ export const userStore = defineStore('user', {
 
   getters: {
     isAuthenticated: (state) => !!state.token,
-
     userFullName() {
       return this.user
     }

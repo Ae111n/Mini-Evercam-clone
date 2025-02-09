@@ -91,7 +91,7 @@ p {
   margin: 7.5% auto auto auto;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 5px 14px 0px rgba(173, 173, 173, 1);
+  box-shadow: 0px 1px 4px 0px rgba(173, 173, 173, 1);
 }
 
 input {
