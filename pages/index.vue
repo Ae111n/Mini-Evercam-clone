@@ -1,15 +1,11 @@
-<template>
-  
-</template>
+<template></template>
 
 <script>
 export default {
-     async mounted() {
-    this.$router.push('/login'); 
+  async mounted() {
+    this.$router.push("/login");
   },
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

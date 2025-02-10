@@ -28,7 +28,7 @@ A simplified clone of Evercam built with Nuxt 2, Pinia, and Axios. This app demo
 │   │   └── _camera_exid.vue  # Live view for individual cameras.
 │   ├── dashboard.vue     # Main dashboard showing user info and cameras.
 │   ├──login.vue         # Login page.
-|   └──index.vue           
+|   └──index.vue
 ├── plugins/
 │   └── axios.js          # Axios setup for API calls.
 ├── store/
@@ -42,20 +42,25 @@ A simplified clone of Evercam built with Nuxt 2, Pinia, and Axios. This app demo
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js installed.
 
 ### Installation
+
 1. Clone the repository:
-  ```
-   git clone <repository-url>
-   cd <project-directory>
-   ```
+
+```
+ git clone <repository-url>
+ cd <project-directory>
+```
+
 2. Install dependencies:
    ```
    yarn install
    ```
 
 ### Running the App
+
 - Start the development server:
   ```
   yarn dev
@@ -63,8 +68,7 @@ A simplified clone of Evercam built with Nuxt 2, Pinia, and Axios. This app demo
 - Open `http://localhost:3000` in your browser.
 
 ## Tech Stack
+
 - **Nuxt 2**: Framework for Vue.js.
 - **Pinia**: State management library.
 - **Axios**: HTTP client for API requests.
-
-

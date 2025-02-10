@@ -135,7 +135,9 @@ label {
 
 #signIn:hover {
   background-color: #1366d6;
-  box-shadow: rgba(0, 0, 0, 0.05) 0 5px 30px, rgba(0, 0, 0, 0.05) 0 1px 4px;
+  box-shadow:
+    rgba(0, 0, 0, 0.05) 0 5px 30px,
+    rgba(0, 0, 0, 0.05) 0 1px 4px;
   opacity: 1;
   transform: translateY(0);
   transition-duration: 0.35s;
@@ -146,7 +148,9 @@ label {
 }
 
 #signIn:active {
-  box-shadow: rgba(0, 0, 0, 0.1) 0 3px 6px 0, rgba(0, 0, 0, 0.1) 0 0 10px 0,
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0 3px 6px 0,
+    rgba(0, 0, 0, 0.1) 0 0 10px 0,
     rgba(0, 0, 0, 0.1) 0 1px 4px -1px;
   transform: translateY(2px);
   transition-duration: 0.35s;

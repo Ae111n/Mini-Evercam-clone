@@ -50,14 +50,15 @@ export default {
     };
   },
   async mounted() {
-  this.selectedCamera = this.cameras.selectedCamera || localStorage.getItem("selectedCamera");
-  if (this.selectedCamera) {
-    localStorage.setItem("selectedCamera", this.selectedCamera);
-  }
-  await this.cameras.fetchLatestSnapshot(this.exid);
-  this.imageSrc = this.cameras.imageSrc;
-  this.fetchSnapshot();
-},
+    this.selectedCamera =
+      this.cameras.selectedCamera || localStorage.getItem("selectedCamera");
+    if (this.selectedCamera) {
+      localStorage.setItem("selectedCamera", this.selectedCamera);
+    }
+    await this.cameras.fetchLatestSnapshot(this.exid);
+    this.imageSrc = this.cameras.imageSrc;
+    this.fetchSnapshot();
+  },
   computed: {
     imgStyles() {
       return {
@@ -135,7 +136,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Material+Icons");
 :root {
   background-color: light-dark(rgb(210, 210, 210), rgb(52, 52, 52));
-  color-scheme: light dark ;
+  color-scheme: light dark;
 }
 
 .material-icons {
@@ -247,14 +248,18 @@ export default {
 
 .toDashboard:hover {
   filter: saturate(2);
-  box-shadow: rgba(0, 0, 0, 0.05) 0 5px 30px, rgba(0, 0, 0, 0.05) 0 1px 4px;
+  box-shadow:
+    rgba(0, 0, 0, 0.05) 0 5px 30px,
+    rgba(0, 0, 0, 0.05) 0 1px 4px;
   opacity: 1;
   transform: translateY(0);
   transition-duration: 0.35s;
 }
 
 .toDashboard:active {
-  box-shadow: rgba(0, 0, 0, 0.1) 0 3px 6px 0, rgba(0, 0, 0, 0.1) 0 0 10px 0,
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0 3px 6px 0,
+    rgba(0, 0, 0, 0.1) 0 0 10px 0,
     rgba(0, 0, 0, 0.1) 0 1px 4px -1px;
   transform: translateY(2px);
   transition-duration: 0.35s;

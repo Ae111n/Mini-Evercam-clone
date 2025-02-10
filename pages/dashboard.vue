@@ -10,17 +10,18 @@
     <div class="container-div">
       <div class="title">
         <h1>Camera dashboard</h1>
-      <h2 class="cameraCount">{{ camerasList.length }} cameras available..</h2>
-</div>
-      <div class="grid">
-              <cameraCard
-        v-for="camera in camerasList"
-        :key="camera.id"
-        :token="user.token"
-        :camera="camera"
-      />
+        <h2 class="cameraCount">
+          {{ camerasList.length }} cameras available..
+        </h2>
       </div>
-
+      <div class="grid">
+        <cameraCard
+          v-for="camera in camerasList"
+          :key="camera.id"
+          :token="user.token"
+          :camera="camera"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -58,9 +59,9 @@ export default {
 };
 </script>
 <style>
-:root{
-  background-color: light-dark(rgb(210, 210, 210),rgb(52, 52, 52));
-  color-scheme: light dark ;
+:root {
+  background-color: light-dark(rgb(210, 210, 210), rgb(52, 52, 52));
+  color-scheme: light dark;
 }
 html {
   transition: all 0.2s;
@@ -76,7 +77,7 @@ html {
   font-size: large;
   top: 0;
   z-index: 1;
-  background-color: light-dark(rgb(210, 210, 210),rgb(52, 52, 52));
+  background-color: light-dark(rgb(210, 210, 210), rgb(52, 52, 52));
 }
 
 .cameraCount {
@@ -102,20 +103,19 @@ html {
   font-style: italic;
   font-weight: 100;
 }
-.title{
+.title {
   text-align: center;
 }
-.title h1{
-font-size: 40px;
-font-weight: 500;
-letter-spacing: .3cap;
+.title h1 {
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: 0.3cap;
 }
 .container-div {
   width: 96vw;
   margin: 5vh auto;
-
 }
-.grid{
+.grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(535px, 1fr));
   gap: 16px;
@@ -145,7 +145,9 @@ letter-spacing: .3cap;
 }
 
 #logout:active {
-  box-shadow: rgba(0, 0, 0, 0.1) 0 3px 6px 0, rgba(0, 0, 0, 0.1) 0 0 10px 0,
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0 3px 6px 0,
+    rgba(0, 0, 0, 0.1) 0 0 10px 0,
     rgba(0, 0, 0, 0.1) 0 1px 4px -1px;
   transform: translateY(2px);
   transition-duration: 0.35s;
